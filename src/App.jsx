@@ -4,7 +4,7 @@ import './App.css';
 
 const App = () => {
   const [selectedSetIndex, setSelectedSetIndex] = useState(null);
-  const [cbc, setCurrentBlackCard] = useState(null);
+  const [cbc, setcbc] = useState(null);
   const [hiddenWhiteCards, setHiddenWhiteCards] = useState([]);
   const [cwc, setcwc] = useState(null);
   const [showWhiteCards, setShowWhiteCards] = useState(false);
@@ -13,7 +13,7 @@ const App = () => {
 
   const handleSetSelect = (index) => {
     setSelectedSetIndex(index);
-    setCurrentBlackCard(null);
+    setcbc(null);
     setcwc(null);
     setShowWhiteCards(false);
     setrbc(false);
@@ -23,12 +23,16 @@ const App = () => {
   const drawBlackCard = () => {
     const set = cardData[selectedSetIndex];
     const randomIndex = Math.floor(Math.random() * set.black.length);
-    setCurrentBlackCard(set.black[randomIndex]);
+    setcbc(set.black[randomIndex]);
     drawWhiteCards();
     setShowWhiteCards(false);
     setrbc(false);
     setrwc([false, false, false, false, false]);
   };
+
+  const combinedText = cbc && cwc
+  ? cbc.text.replace(/_+/g, cwc.text)
+  : '';
 
   const drawWhiteCards = () => {
     const set = cardData[selectedSetIndex];
@@ -121,7 +125,7 @@ const App = () => {
               <div className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-semibold mb-2">Combined Card</h3>
                 <p className="text-gray-300 text-sm sm:text-base">
-                  {cbc.text} {cwc.text}
+                  {combinedText}
                 </p>
               </div>
             </div>
