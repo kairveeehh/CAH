@@ -30,9 +30,10 @@ const App = () => {
     setrwc([false, false, false, false, false]);
   };
 
-  const combinedText = cbc && cwc
+  const combinedText = cbc && cwc && cbc.text.includes('_')
   ? cbc.text.replace(/_+/g, cwc.text)
-  : '';
+  : `Q- ${cbc ? cbc.text : ''} and Ans- ${cwc ? cwc.text : ''}`;
+
 
   const drawWhiteCards = () => {
     const set = cardData[selectedSetIndex];
