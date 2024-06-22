@@ -101,7 +101,7 @@ const App = () => {
             <div className="flex justify-center">
               {cbc && (
                 <div
-                  className={`bg-black text-white rounded-lg shadow-lg overflow-hidden w-60 h-80 content-center mt-4 cursor-pointer p-4 sm:p-6 ${rbc ? 'text-4xl flex items-center justify-center' : ''}`}
+                  className={`bg-black text-white rounded-lg shadow-lg overflow-hidden w-60 h-80 content-center mt-4 cursor-pointer p-4 sm:p-6 ${rbc ? 'text-3xl flex items-center justify-center' : ''}`}
                   onClick={handleBlackCardClick}
                 >
                   {rbc ? cbc.text : (
@@ -130,7 +130,7 @@ const App = () => {
                 {hiddenWhiteCards.map((card, index) => (
                   <div
                     key={index}
-                    className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-4xl flex items-center justify-center' : ''}`}
+                    className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-2xl flex items-center justify-center' : ''}`}
                     onClick={() => handleWhiteCardClick(index)}
                   >
                     {revealedCardIndex === index ? cwc.text : (
