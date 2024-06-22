@@ -11,6 +11,7 @@ const App = () => {
   const [showWhiteCards, setShowWhiteCards] = useState(false);
   const [rbc, setrbc] = useState(false);
   const [rwc, setrwc] = useState([false, false, false, false, false]);
+  const [revealedCardIndex, setRevealedCardIndex] = useState(null); // State to track which white card is currently revealed
 
   const handleSetSelect = (index) => {
     setSelectedSetIndex(index);
@@ -19,6 +20,7 @@ const App = () => {
     setShowWhiteCards(false);
     setrbc(false);
     setrwc([false, false, false, false, false]);
+    setRevealedCardIndex(null); // Reset revealed card index when a new set is selected
   };
 
   const drawBlackCard = () => {
@@ -29,9 +31,12 @@ const App = () => {
     setShowWhiteCards(false);
     setrbc(false);
     setrwc([false, false, false, false, false]);
+    setRevealedCardIndex(null); 
   };
 
-  const combinedText = cbc && cwc ? cbc.text.replace(/_+/g, cwc.text) : "";
+  const combinedText = cbc && cwc && cbc.text.includes('_')
+    ? cbc.text.replace(/_+/g, cwc.text)
+    : `Q- ${cbc ? cbc.text : ''} and Ans- ${cwc ? cwc.text : ''}`;
 
   const drawWhiteCards = () => {
     const set = cardData[selectedSetIndex];
@@ -41,6 +46,7 @@ const App = () => {
       newWhiteCards.push(set.white[randomIndex]);
     }
     setHiddenWhiteCards(newWhiteCards);
+    setRevealedCardIndex(null); 
   };
 
   const revealWhiteCards = () => {
@@ -52,10 +58,15 @@ const App = () => {
   };
 
   const handleWhiteCardClick = (index) => {
-    const newrwc = [...rwc];
-    newrwc[index] = true;
-    setrwc(newrwc);
-    setcwc(hiddenWhiteCards[index]);
+    if (revealedCardIndex === index) {
+
+      setRevealedCardIndex(null);
+      setcwc(null);
+    } else {
+
+      setRevealedCardIndex(index);
+      setcwc(hiddenWhiteCards[index]);
+    }
   };
 
   return (
@@ -72,9 +83,7 @@ const App = () => {
               onClick={() => handleSetSelect(index)}
             >
               <div className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-semibold mb-2">
-                  {set.name}
-                </h3>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">{set.name}</h3>
               </div>
             </div>
           ))}
@@ -94,7 +103,7 @@ const App = () => {
             >
               <img src="https://i.imgur.com/UxZlfpg.png" className="w-60" alt="fuck" />
               <p className="text-gray-300 text-sm sm:text-base">
-                {rbc ? cbc.text : "reveal black card "}
+                {rbc ? cbc.text : "Click to reveal black card"}
               </p>
             </div>
           )}
@@ -111,11 +120,11 @@ const App = () => {
               {hiddenWhiteCards.map((card, index) => (
                 <div
                   key={index}
-                  className="bg-white text-black rounded-lg shadow-lg overflow-hidden cursor-pointer p-4 sm:p-6"
+                  className={`bg-white text-black rounded-lg shadow-lg overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-blue-500' : ''}`}
                   onClick={() => handleWhiteCardClick(index)}
                 >
                   <p className="text-gray-500 text-sm sm:text-base">
-                    {rwc[index] ? card.text : "Click to reveal"}
+                    {revealedCardIndex === index ? cwc.text : "Click to reveal"}
                   </p>
                 </div>
               ))}
