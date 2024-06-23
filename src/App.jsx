@@ -27,7 +27,7 @@ const App = () => {
     const set = cardData[selectedSetIndex];
     const randomIndex = Math.floor(Math.random() * set.black.length);
     setcbc(set.black[randomIndex]);
-    setcwc(null);  // Reset the combined white card
+    setcwc(null); 
     drawWhiteCards();
     setShowWhiteCards(false);
     setrbc(false);
@@ -126,23 +126,25 @@ const App = () => {
               </div>
             )}
             {showWhiteCards && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-center gap-6 sm:gap-8 lg:gap-10 mt-4">
-                {hiddenWhiteCards.map((card, index) => (
-                  <div
-                    key={index}
-                    className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 justify-center overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-2xl flex items-center justify-center' : ''}`}
-                    onClick={() => handleWhiteCardClick(index)}
-                  >
-                    {revealedCardIndex === index ? cwc.text : (
-                      <>
-                        <img src="https://i.imgur.com/UxZlfpg.png" className="bg-gray-200 h-60" alt="" />
-                        <p className="text-gray-500 text-sm flex justify-center align-middle sm:text-base">
-                          Click to reveal
-                        </p>
-                      </>
-                    )}
-                  </div>
-                ))}
+              <div className="flex justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mt-4">
+                  {hiddenWhiteCards.map((card, index) => (
+                    <div
+                      key={index}
+                      className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 justify-center overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-2xl flex items-center justify-center' : ''}`}
+                      onClick={() => handleWhiteCardClick(index)}
+                    >
+                      {revealedCardIndex === index ? cwc.text : (
+                        <>
+                          <img src="https://i.imgur.com/UxZlfpg.png" className="bg-gray-200 h-60" alt="" />
+                          <p className="text-gray-500 text-sm flex justify-center align-middle sm:text-base">
+                            Click to reveal
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
             {cwc && (
