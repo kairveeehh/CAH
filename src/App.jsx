@@ -124,22 +124,27 @@ const App = () => {
             </div>
           )}
           {showWhiteCards && (
-            <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mt-4">
-              {hiddenWhiteCards.map((card, index) => (
-                <div
-                  key={index}
-                  className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200' : ''}`}
-                  onClick={() => handleWhiteCardClick(index)}
-                >
-                  {revealedCardIndex === index ? <div /> : <img src="https://i.imgur.com/UxZlfpg.png" className="bg-gray-200 h-60" alt="" />}
-                  
-                  <p className="text-gray-500 text-sm flex justify-center align-middle sm:text-base">
-                    {revealedCardIndex === index ? cwc.text : "Click to reveal"}
-                  </p>
+              <div className="flex justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mt-4">
+                  {hiddenWhiteCards.map((card, index) => (
+                    <div
+                      key={index}
+                      className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 justify-center overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-2xl flex items-center justify-center' : ''}`}
+                      onClick={() => handleWhiteCardClick(index)}
+                    >
+                      {revealedCardIndex === index ? cwc.text : (
+                        <>
+                          <img src="https://i.imgur.com/UxZlfpg.png" className="bg-gray-200 h-60" alt="" />
+                          <p className="text-gray-500 text-sm flex justify-center align-middle sm:text-base">
+                            Click to reveal
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            )}
           {cwc && (
             <div className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden mt-4">
               <div className="p-4 sm:p-6">
