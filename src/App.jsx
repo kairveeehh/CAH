@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import cardData from "./cards.json"; // Make sure this path is correct based on your file structure
 import "./App.css";
-import Card from "./components/Card";
+
 
 const App = () => {
   const [selectedSetIndex, setSelectedSetIndex] = useState(null);
@@ -38,7 +38,7 @@ const App = () => {
 
   const combinedText = cbc && cwc && cbc.text.includes('_')
     ? cbc.text.replace(/_+/g, cwc.text)
-    : `Q- ${cbc ? cbc.text : ''} and Ans- ${cwc ? cwc.text : ''}`;
+    : `Q- ${cbc ? cbc.text : ''}  ${cwc ? cwc.text : ''}`;
 
   const drawWhiteCards = () => {
     const set = cardData[selectedSetIndex];
@@ -73,16 +73,18 @@ const App = () => {
 
   return (
     <div className="">
-    <div className="w-full max-w-6xl mx-auto px-4  sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10">
       <h1 className="text-3xl font-bold mb-6 text-center">
         Cards Against Humanity
       </h1>
+      <div></div>
       {selectedSetIndex === null ? (
         <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+         
           {cardData.map((set, index) => (
             <div
               key={index}
-              className="bg-gray-200 rounded-lg shadow-lg overflow-hidden cursor-pointer"
+              className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden cursor-pointer border border-white"
               onClick={() => handleSetSelect(index)}
             >
               <div className="p-4 sm:p-6">
@@ -104,7 +106,7 @@ const App = () => {
           <div className="flex justify-center">
           {cbc && (
             <div
-              className="bg-black text-white rounded-lg shadow-lg overflow-hidden w-60 h-80 content-center mt-4 cursor-pointer p-4 sm:p-6"
+              className="bg-black text-white rounded-lg shadow-lg overflow-hidden w-60 h-80 content-center my-4 cursor-pointer p-4 sm:p-6"
               onClick={handleBlackCardClick}
             >
               <img src={rbc ? cbc.text : "https://i.imgur.com/UxZlfpg.png"} className="w-60" alt="" />
@@ -125,7 +127,7 @@ const App = () => {
             </div>
           )}
           {showWhiteCards && (
-            <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mt-4">
+            <div className="grid grid-cols-1   sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 mt-12np">
               {hiddenWhiteCards.map((card, index) => (
                 <div
                   key={index}
@@ -134,7 +136,7 @@ const App = () => {
                 >
                   {revealedCardIndex === index ? <div /> : <img src="https://i.imgur.com/UxZlfpg.png" className="bg-gray-200 h-60" alt="" />}
                   
-                  <p className="text-gray-500 text-sm flex justify-center align-middle sm:text-base">
+                  <p className="text-gray-500 text-sm flex justify-center  sm:text-base">
                     {revealedCardIndex === index ? cwc.text : "Click to reveal"}
                   </p>
                 </div>
