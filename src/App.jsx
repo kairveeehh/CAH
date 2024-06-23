@@ -13,9 +13,12 @@ const App = () => {
   const [rwc, setrwc] = useState([false, false, false, false, false]);
   const [revealedCardIndex, setRevealedCardIndex] = useState(null);
   const [image,setImage] = useState(true);
+  const [selectedSetName, setSelectedSetName] = useState('');
+
 
   const handleSetSelect = (index) => {
     setSelectedSetIndex(index);
+    setSelectedSetName(cardData[index].name); 
     setcbc(null);
     setcwc(null);
     setShowWhiteCards(false);
@@ -71,9 +74,7 @@ const App = () => {
   return (
     <div className="">
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10">
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        Cards Against Humanity
-      </h1>
+      
       <div></div>
       {selectedSetIndex === null ? (
         <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
@@ -92,14 +93,19 @@ const App = () => {
         </div>
       ) : (
         <div>
-          <div className="flex justify-center"> 
-          <button
-            className="bg-yellow-500  text-white px-4 py-2 rounded mt-4"
-            onClick={drawBlackCard}
-          >
-            Draw Black Card
-          </button>
-          </div>
+    <div className="flex flex-col items-center">
+  <h1 className="text-3xl font-bold mb-6 text-center">
+    {selectedSetName}
+  </h1>
+  <button
+    className="bg-yellow-500 text-white px-4 py-2 rounded mt-7"
+    onClick={drawBlackCard}
+  >
+    Draw Black Card
+  </button>
+</div>
+
+
           <div className="flex justify-center">
           {cbc && (
             <div
