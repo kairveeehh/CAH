@@ -23,18 +23,18 @@ const App = () => {
     setrwc([false, false, false, false, false]);
     setRevealedCardIndex(null);
   };
-
   const drawBlackCard = () => {
     const set = cardData[selectedSetIndex];
     const randomIndex = Math.floor(Math.random() * set.black.length);
     setcbc(set.black[randomIndex]);
+    setcwc(null);  // Reset the combined white card
     drawWhiteCards();
     setShowWhiteCards(false);
     setrbc(false);
     setrwc([false, false, false, false, false]);
     setRevealedCardIndex(null);
   };
-
+  
   const combinedText = cbc && cwc && cbc.text.includes('_')
     ? cbc.text.replace(/_+/g, cwc.text)
     : `Q- ${cbc ? cbc.text : ''} and Ans- ${cwc ? cwc.text : ''}`;
@@ -126,11 +126,11 @@ const App = () => {
               </div>
             )}
             {showWhiteCards && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-center gap-6 sm:gap-8 lg:gap-10 mt-4">
                 {hiddenWhiteCards.map((card, index) => (
                   <div
                     key={index}
-                    className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-2xl flex items-center justify-center' : ''}`}
+                    className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 justify-center overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-2xl flex items-center justify-center' : ''}`}
                     onClick={() => handleWhiteCardClick(index)}
                   >
                     {revealedCardIndex === index ? cwc.text : (
