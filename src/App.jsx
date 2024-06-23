@@ -131,7 +131,7 @@ const App = () => {
                   {hiddenWhiteCards.map((card, index) => (
                     <div
                       key={index}
-                      className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 justify-center overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-2xl flex items-center justify-center' : ''}`}
+                      className={`bg-white text-black rounded-lg shadow-lg w-60 h-80 justify-center overflow-hidden cursor-pointer p-4 sm:p-6 ${revealedCardIndex === index ? 'border-2 border-gray-200 text-3xl flex items-center justify-center' : ''}`}
                       onClick={() => handleWhiteCardClick(index)}
                     >
                       {revealedCardIndex === index ? cwc.text : (
